@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Search, Filter } from "lucide-react";
+import { Plus, Search, Filter, CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -23,13 +23,24 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+
 
 // Mock Data
 const initialMaterials = [
-    { id: 1, name: "Madera Pino 2x4", stock: 120, unit: "m", status: "ok", lastUpdated: "2024-03-10" },
+    { id: 1, name: "Madera Pino 2x4", stock: 30, unit: "m", status: "critical", lastUpdated: "2024-03-10" },
     { id: 2, name: "Barniz Mate", stock: 2.5, unit: "L", status: "warning", lastUpdated: "2024-03-12" },
     { id: 3, name: "Tornillos 2 pulg", stock: 500, unit: "u", status: "ok", lastUpdated: "2024-03-08" },
-    { id: 4, name: "Clavos Acero", stock: 50, unit: "u", status: "critical", lastUpdated: "2024-02-28" },
+    { id: 4, name: "Clavos Acero", stock: 50, unit: "u", status: "warning", lastUpdated: "2024-02-28" },
+    { id: 5, name: "Arena", stock: 400, unit: "kg", status: "ok", lastUpdated: "2024-03-15" },
+    { id: 6, name: "Cemento", stock: 850, unit: "kg", status: "ok", lastUpdated: "2024-03-15" },
+    { id: 7, name: "Fierro Estriado", stock: 65, unit: "u", status: "critical", lastUpdated: "2024-03-14" },
 ];
 
 export default function InventoryPage() {
@@ -40,44 +51,60 @@ export default function InventoryPage() {
             {/* Header */}
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Inventario Global</h1>
-                    <p className="text-zinc-500">Gestión de materias primas y recursos compartidos.</p>
+                    <h1 className="text-3xl font-bold tracking-tight">MateriaPrima</h1>
+                    <p className="text-zinc-500">Gestión de materias primas y recursos.</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Button variant="outline" className="gap-2">
-                        <Filter className="h-4 w-4" />
-                        Filtrar
-                    </Button>
                     <Dialog>
                         <DialogTrigger asChild>
                             <Button className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white">
                                 <Plus className="h-4 w-4" />
-                                Registrar Material
+                                Agregar Transacción
                             </Button>
                         </DialogTrigger>
-                        <DialogContent>
+                        <DialogContent className="sm:max-w-[500px]">
                             <DialogHeader>
-                                <DialogTitle>Agregar Nuevo Material</DialogTitle>
+                                <DialogTitle>MateriaPrima</DialogTitle>
                                 <DialogDescription>
-                                    Ingresa los detalles del material para el control de stock.
+                                    Registra el ingreso o egreso de materiales.
                                 </DialogDescription>
                             </DialogHeader>
-                            <div className="grid gap-4 py-4">
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="name" className="text-right">Nombre</Label>
-                                    <Input id="name" placeholder="Ej: Madera Roble" className="col-span-3" />
+
+                            <div className="grid gap-6 py-4">
+                                {/* Material Selection */}
+                                <div className="grid gap-2">
+                                    <Label htmlFor="material">Material</Label>
+                                    <Select>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Selecciona un material" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="madera">Madera Pino 2x4</SelectItem>
+                                            <SelectItem value="barniz">Barniz Mate</SelectItem>
+                                            <SelectItem value="tornillos">Tornillos 2 pulg</SelectItem>
+                                            <SelectItem value="clavos">Clavos Acero</SelectItem>
+                                            <SelectItem value="arena">Arena (Saco)</SelectItem>
+                                            <SelectItem value="cemento">Cemento (Saco)</SelectItem>
+                                            <SelectItem value="fierro">Fierro Estriado</SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="stock" className="text-right">Stock Inicial</Label>
-                                    <Input id="stock" type="number" placeholder="0.00" className="col-span-3" />
+
+                                {/* Quantity & Unit (Context) */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="quantity">Cantidad</Label>
+                                        <Input id="quantity" type="number" placeholder="0.00" className="text-lg font-medium" />
+                                    </div>
+                                    <div className="grid gap-2">
+                                        <Label htmlFor="date">Fecha</Label>
+                                        <Input id="date" type="date" className="block" />
+                                    </div>
                                 </div>
-                                <div className="grid grid-cols-4 items-center gap-4">
-                                    <Label htmlFor="unit" className="text-right">Unidad</Label>
-                                    <Input id="unit" placeholder="m, kg, L, u..." className="col-span-3" />
-                                </div>
+
                             </div>
-                            <DialogFooter>
-                                <Button type="submit">Guardar Material</Button>
+                            <DialogFooter className="mt-4">
+                                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">Confirmar Transacción</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>

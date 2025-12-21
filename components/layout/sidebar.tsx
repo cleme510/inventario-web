@@ -21,7 +21,7 @@ export function Sidebar() {
     <div className="flex h-screen w-64 flex-col border-r bg-zinc-950 text-zinc-50">
       {/* Logo Area */}
       <div className="flex h-16 items-center border-b border-zinc-800 px-6">
-        <h1 className="text-xl font-bold tracking-tight">Taller<span className="text-zinc-400">OS</span></h1>
+        <h1 className="text-xl font-bold tracking-tight">Inventario<span className="text-[#D37B11]">Atrio</span></h1>
       </div>
 
       {/* Main Navigation */}

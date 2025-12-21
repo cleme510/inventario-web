@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { OverviewChart } from "@/components/dashboard/overview-chart";
-import { Activity, CreditCard, DollarSign, Users, Package, Hammer } from "lucide-react";
+import { MaterialStockChart } from "@/components/dashboard/material-chart";
+import { Activity, Package, Hammer } from "lucide-react";
 
 export default function DashboardPage() {
   return (
@@ -11,7 +11,7 @@ export default function DashboardPage() {
       </div>
 
       {/* KPI Cards Row */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Proyectos Activos</CardTitle>
@@ -42,27 +42,17 @@ export default function DashboardPage() {
             <p className="text-xs text-zinc-500">Requieren atención inmediata</p>
           </CardContent>
         </Card>
-        <Card className="bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Eficiencia</CardTitle>
-            <Users className="h-4 w-4 text-zinc-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">92%</div>
-            <p className="text-xs text-zinc-500">Tiempo de ciclo promedio</p>
-          </CardContent>
-        </Card>
       </div>
 
       {/* Main Chart Section */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="col-span-4 bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800">
           <CardHeader>
-            <CardTitle>History Performance</CardTitle>
-            <CardDescription>Producción total de unidades (Últimos 7 días)</CardDescription>
+            <CardTitle>Stock de Materias Primas</CardTitle>
+            <CardDescription>Niveles actuales vs Capacidad</CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
-            <OverviewChart />
+            <MaterialStockChart />
           </CardContent>
         </Card>
 

@@ -16,10 +16,16 @@ export function Topbar() {
                     <span>Sistemas: OK</span>
                 </div>
 
-                {/* Warning Mockup */}
-                <div className="flex items-center gap-2 rounded-full border bg-amber-50 px-3 py-1 text-xs font-medium text-amber-700 dark:bg-amber-950/30 dark:text-amber-400">
-                    <AlertCircle className="h-3 w-3" />
-                    <span>Madera Pino: Stock Bajo (15%)</span>
+                {/* Critical Alerts */}
+                <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-medium text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400 animation-pulse">
+                        <AlertCircle className="h-3 w-3" />
+                        <span>Madera (10%)</span>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-xs font-medium text-red-700 dark:border-red-900/50 dark:bg-red-950/30 dark:text-red-400">
+                        <AlertCircle className="h-3 w-3" />
+                        <span>Fierro (13%)</span>
+                    </div>
                 </div>
             </div>
         </div>
