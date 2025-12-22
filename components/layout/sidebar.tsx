@@ -5,11 +5,12 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { LayoutDashboard, Box, FolderKanban, MessageSquare, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Box, FolderKanban, MessageSquare, Settings, LogOut, ClipboardList } from "lucide-react";
 
 const sidebarItems = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
-  { name: "Inventario", href: "/inventory", icon: Box },
+  { name: "MateriaPrima", href: "/inventory", icon: Box },
+  { name: "Productos (Recetas)", href: "/products", icon: ClipboardList },
   { name: "Proyectos", href: "/projects", icon: FolderKanban },
   { name: "Asistente IA", href: "/chat", icon: MessageSquare },
 ];
