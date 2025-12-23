@@ -19,10 +19,10 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-screen w-64 flex-col border-r bg-zinc-950 text-zinc-50">
+    <div className="flex h-screen w-64 flex-col border-r border-zinc-900 bg-transparent text-zinc-100">
       {/* Logo Area */}
-      <div className="flex h-16 items-center border-b border-zinc-800 px-6">
-        <h1 className="text-xl font-bold tracking-tight">Inventario<span className="text-[#D37B11]">Atrio</span></h1>
+      <div className="flex h-16 items-center border-b border-zinc-900 px-6">
+        <h1 className="text-xl font-bold tracking-tight text-white">Inventario<span className="text-[#D37B11]">Atrio</span></h1>
       </div>
 
       {/* Main Navigation */}
@@ -36,9 +36,9 @@ export function Sidebar() {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "w-full justify-start gap-3 rounded-xl px-3 py-6 text-sm font-medium transition-all hover:bg-zinc-800",
+                    "w-full justify-start gap-3 rounded-xl px-3 py-6 text-sm font-medium transition-all hover:bg-zinc-900",
                     isActive
-                      ? "bg-zinc-800 text-white shadow-sm"
+                      ? "bg-zinc-900 text-white shadow-sm"
                       : "text-zinc-400 hover:text-white"
                   )}
                 >
@@ -52,8 +52,8 @@ export function Sidebar() {
       </ScrollArea>
 
       {/* Footer / User Area */}
-      <div className="border-t border-zinc-800 p-4">
-        <Button variant="ghost" className="w-full justify-start gap-3 text-zinc-400 hover:bg-zinc-800 hover:text-white">
+      <div className="border-t border-zinc-900 p-4">
+        <Button variant="ghost" className="w-full justify-start gap-3 text-zinc-400 hover:bg-zinc-900 hover:text-white">
           <Settings className="h-5 w-5" />
           Configuración
         </Button>

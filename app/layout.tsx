@@ -18,28 +18,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className="dark">
-      <body className={cn(inter.className, "bg-zinc-50 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50")}>
-        <div className="flex h-screen overflow-hidden">
-          {/* Fixed Sidebar */}
-          <aside className="hidden md:flex">
-            <Sidebar />
-          </aside>
+    <html lang="es" suppressHydrationWarning>
+      <body className="dark bg-zinc-950 text-zinc-100">
+        <div className={inter.className}>
+          <div className="flex h-screen overflow-hidden">
+            <aside className="hidden md:flex">
+              <Sidebar />
+            </aside>
 
-          {/* Main Content Area */}
-          <div className="flex flex-1 flex-col overflow-hidden">
-            <header className="h-16 shrink-0 z-20">
-              <Topbar />
-            </header>
+            <div className="flex flex-1 flex-col overflow-hidden">
+              <header className="h-16 shrink-0 z-20">
+                <Topbar />
+              </header>
 
-            <main className="flex-1 overflow-y-auto bg-zinc-50/50 p-6 dark:bg-zinc-900/50">
-              <div className="mx-auto max-w-6xl">
-                {children}
-              </div>
-            </main>
+              <main className="flex-1 overflow-y-auto bg-transparent p-6">
+                <div className="mx-auto max-w-6xl">
+                  {children}
+                </div>
+              </main>
+            </div>
           </div>
         </div>
       </body>
     </html>
+
   );
 }

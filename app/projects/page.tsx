@@ -54,7 +54,7 @@ export default function ProjectsPage() {
                     <h1 className="text-3xl font-bold tracking-tight">Proyectos</h1>
                     <p className="text-zinc-500">Gestión de órdenes de producción y estados.</p>
                 </div>
-                <Button className="gap-2 bg-zinc-900 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200">
+                <Button className="gap-2 bg-zinc-100 text-zinc-950 hover:bg-zinc-200 border-none transition-colors">
                     <Plus className="h-4 w-4" />
                     Nuevo Proyecto
                 </Button>
@@ -62,28 +62,28 @@ export default function ProjectsPage() {
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {projects.map((project) => (
-                    <Card key={project.id} className="cursor-pointer transition-all hover:shadow-lg dark:hover:border-zinc-700">
+                    <Card key={project.id} className="cursor-pointer border-zinc-800 bg-zinc-900 shadow-none hover:border-zinc-700 transition-colors">
                         <CardHeader>
                             <div className="flex items-start justify-between">
                                 <div>
-                                    <CardTitle>{project.name}</CardTitle>
-                                    <CardDescription>{project.client}</CardDescription>
+                                    <CardTitle className="text-zinc-100">{project.name}</CardTitle>
+                                    <CardDescription className="text-zinc-500">{project.client}</CardDescription>
                                 </div>
-                                {project.status === 'production' && <Badge className="bg-emerald-500 hover:bg-emerald-600">Producción</Badge>}
-                                {project.status === 'planning' && <Badge variant="outline" className="border-blue-500 text-blue-500">Planificación</Badge>}
-                                {project.status === 'completed' && <Badge variant="secondary">Finalizado</Badge>}
+                                {project.status === 'production' && <Badge className="bg-emerald-900 text-emerald-400 border border-emerald-800">Producción</Badge>}
+                                {project.status === 'planning' && <Badge variant="outline" className="border-blue-900 text-blue-400 bg-blue-950/30">Planificación</Badge>}
+                                {project.status === 'completed' && <Badge variant="secondary" className="bg-zinc-800 text-zinc-300 border-none">Finalizado</Badge>}
                             </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between text-sm">
                                     <span className="text-zinc-500">Progreso</span>
-                                    <span className="font-medium">{project.progress}%</span>
+                                    <span className="font-medium text-zinc-200">{project.progress}%</span>
                                 </div>
-                                <Progress value={project.progress} className="h-2" />
+                                <Progress value={project.progress} className="h-2 bg-zinc-950" />
                             </div>
                         </CardContent>
-                        <CardFooter className="flex items-center justify-between border-t bg-zinc-50/50 p-4 text-xs font-medium text-zinc-500 dark:bg-zinc-900/50">
+                        <CardFooter className="flex items-center justify-between border-t border-zinc-800 bg-zinc-900 p-4 text-xs font-medium text-zinc-500">
                             <div>{project.items}</div>
                             <div>{project.date}</div>
                         </CardFooter>

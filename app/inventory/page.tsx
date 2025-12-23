@@ -57,15 +57,15 @@ export default function InventoryPage() {
                 <div className="flex items-center gap-2">
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white">
+                            <Button className="gap-2 bg-emerald-600 hover:bg-emerald-700 text-white border-none transition-colors">
                                 <Plus className="h-4 w-4" />
                                 Agregar Transacción
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[500px]">
+                        <DialogContent className="sm:max-w-[500px] bg-zinc-900 border-zinc-800 text-zinc-100">
                             <DialogHeader>
-                                <DialogTitle>MateriaPrima</DialogTitle>
-                                <DialogDescription>
+                                <DialogTitle className="text-zinc-100">MateriaPrima</DialogTitle>
+                                <DialogDescription className="text-zinc-500">
                                     Registra el ingreso o egreso de materiales.
                                 </DialogDescription>
                             </DialogHeader>
@@ -73,12 +73,12 @@ export default function InventoryPage() {
                             <div className="grid gap-6 py-4">
                                 {/* Material Selection */}
                                 <div className="grid gap-2">
-                                    <Label htmlFor="material">Material</Label>
+                                    <Label htmlFor="material" className="text-zinc-300">Material</Label>
                                     <Select>
-                                        <SelectTrigger>
+                                        <SelectTrigger className="bg-zinc-950 border-zinc-800 text-zinc-100">
                                             <SelectValue placeholder="Selecciona un material" />
                                         </SelectTrigger>
-                                        <SelectContent>
+                                        <SelectContent className="bg-zinc-900 border-zinc-800 text-zinc-100">
                                             <SelectItem value="madera">Madera Pino 2x4</SelectItem>
                                             <SelectItem value="barniz">Barniz Mate</SelectItem>
                                             <SelectItem value="tornillos">Tornillos 2 pulg</SelectItem>
@@ -93,18 +93,18 @@ export default function InventoryPage() {
                                 {/* Quantity & Unit (Context) */}
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="grid gap-2">
-                                        <Label htmlFor="quantity">Cantidad</Label>
-                                        <Input id="quantity" type="number" placeholder="0.00" className="text-lg font-medium" />
+                                        <Label htmlFor="quantity" className="text-zinc-300">Cantidad</Label>
+                                        <Input id="quantity" type="number" placeholder="0.00" className="bg-zinc-950 border-zinc-800 text-zinc-100 text-lg font-medium placeholder:text-zinc-600" />
                                     </div>
                                     <div className="grid gap-2">
-                                        <Label htmlFor="date">Fecha</Label>
-                                        <Input id="date" type="date" className="block" />
+                                        <Label htmlFor="date" className="text-zinc-300">Fecha</Label>
+                                        <Input id="date" type="date" className="bg-zinc-950 border-zinc-800 text-zinc-100" />
                                     </div>
                                 </div>
 
                             </div>
                             <DialogFooter className="mt-4">
-                                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white">Confirmar Transacción</Button>
+                                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white border-none">Confirmar Transacción</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
@@ -115,34 +115,34 @@ export default function InventoryPage() {
             <div className="flex items-center gap-2">
                 <div className="relative flex-1 md:max-w-sm">
                     <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-zinc-500" />
-                    <Input className="pl-9 bg-white dark:bg-zinc-900" placeholder="Buscar material..." />
+                    <Input className="pl-9 bg-zinc-900 border-zinc-800 text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-zinc-700" placeholder="Buscar material..." />
                 </div>
             </div>
 
             {/* Table */}
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 shadow-sm overflow-hidden">
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900 shadow-none overflow-hidden">
                 <Table>
-                    <TableHeader className="bg-zinc-50 dark:bg-zinc-800">
-                        <TableRow>
-                            <TableHead>Nombre del Material</TableHead>
-                            <TableHead>Stock Disponible</TableHead>
-                            <TableHead>Unidad</TableHead>
-                            <TableHead>Estado</TableHead>
-                            <TableHead className="text-right">Última Actualización</TableHead>
+                    <TableHeader className="bg-zinc-900 border-b border-zinc-800">
+                        <TableRow className="hover:bg-transparent border-zinc-800">
+                            <TableHead className="text-zinc-400">Nombre del Material</TableHead>
+                            <TableHead className="text-zinc-400">Stock Disponible</TableHead>
+                            <TableHead className="text-zinc-400">Unidad</TableHead>
+                            <TableHead className="text-zinc-400">Estado</TableHead>
+                            <TableHead className="text-right text-zinc-400">Última Actualización</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {materials.map((item) => (
-                            <TableRow key={item.id}>
-                                <TableCell className="font-medium">{item.name}</TableCell>
-                                <TableCell className="text-lg">{item.stock}</TableCell>
-                                <TableCell className="text-zinc-500">{item.unit}</TableCell>
+                            <TableRow key={item.id} className="border-zinc-800 hover:bg-zinc-800/30">
+                                <TableCell className="font-medium text-zinc-200">{item.name}</TableCell>
+                                <TableCell className="text-lg text-zinc-100 font-bold">{item.stock}</TableCell>
+                                <TableCell className="text-zinc-500 font-medium">{item.unit}</TableCell>
                                 <TableCell>
-                                    {item.status === 'ok' && <Badge variant="outline" className="text-emerald-500 border-emerald-500 bg-emerald-50 dark:bg-emerald-950/20">Normal</Badge>}
-                                    {item.status === 'warning' && <Badge variant="outline" className="text-amber-500 border-amber-500 bg-amber-50 dark:bg-amber-950/20">Bajo</Badge>}
-                                    {item.status === 'critical' && <Badge variant="destructive">Crítico</Badge>}
+                                    {item.status === 'ok' && <Badge variant="outline" className="text-emerald-400 border-emerald-900 bg-emerald-950/50">Normal</Badge>}
+                                    {item.status === 'warning' && <Badge variant="outline" className="text-amber-500 border-amber-900 bg-amber-950/50">Bajo</Badge>}
+                                    {item.status === 'critical' && <Badge variant="destructive" className="bg-red-950 text-red-500 border-red-900">Crítico</Badge>}
                                 </TableCell>
-                                <TableCell className="text-right text-zinc-500">{item.lastUpdated}</TableCell>
+                                <TableCell className="text-right text-zinc-500 font-medium">{item.lastUpdated}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
