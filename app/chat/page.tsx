@@ -11,17 +11,51 @@ export default function ChatPage() {
         { role: "user" | "assistant"; content: string }[]
     >([]);
     const [input, setInput] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-    function sendMessage() {
-        if (!input.trim()) return;
+    async function sendMessage() {
+        if (!input.trim() || isLoading) return;
 
-        setMessages((prev) => [
-            ...prev,
-            { role: "user", content: input },
-            { role: "assistant", content: "Respuesta mock (IA después)" },
-        ]);
-
+        const userMessage = { role: "user" as const, content: input };
+        setMessages((prev) => [...prev, userMessage]);
         setInput("");
+        setIsLoading(true);
+
+        try {
+            const response = await fetch("/api/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ messages: [...messages, userMessage] }),
+            });
+
+            if (!response.ok) throw new Error("Network response was not ok");
+            if (!response.body) throw new Error("No response body");
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+
+            setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                const chunk = decoder.decode(value, { stream: true });
+                setMessages((prev) => {
+                    const newMessages = [...prev];
+                    const lastMessage = newMessages[newMessages.length - 1];
+                    if (lastMessage.role === "assistant") {
+                        lastMessage.content += chunk;
+                    }
+                    return newMessages;
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            setMessages((prev) => [...prev, { role: "assistant", content: "Error: Verifica tu API Key o conexión." }]);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -47,6 +81,11 @@ export default function ChatPage() {
                                 {m.content}
                             </div>
                         ))}
+                        {isLoading && messages[messages.length - 1]?.role === "user" && (
+                            <div className="bg-zinc-800 text-zinc-100 self-start border border-zinc-700/50 rounded-xl px-4 py-3 text-sm max-w-[80%] animate-pulse">
+                                Escribiendo...
+                            </div>
+                        )}
                     </div>
                 </ScrollArea>
 
@@ -56,9 +95,16 @@ export default function ChatPage() {
                         className="bg-zinc-950 border-zinc-800 text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-zinc-700"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+                        onKeyDown={(e) => e.key === "Enter" && !isLoading && sendMessage()}
+                        disabled={isLoading}
                     />
-                    <Button onClick={sendMessage} className="bg-zinc-100 text-zinc-950 hover:bg-zinc-200 border-none transition-colors">Enviar</Button>
+                    <Button
+                        onClick={sendMessage}
+                        className="bg-zinc-100 text-zinc-950 hover:bg-zinc-200 border-none transition-colors"
+                        disabled={isLoading}
+                    >
+                        Enviar
+                    </Button>
                 </div>
             </Card>
         </div>
